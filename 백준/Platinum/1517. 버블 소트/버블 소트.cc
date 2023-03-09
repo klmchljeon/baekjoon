@@ -58,6 +58,9 @@ bool compare(pair<int,ll> a, pair<int,ll> b) {
 
 int main()
 {
+    ios_base :: sync_with_stdio(false);
+    cin.tie(NULL);
+
     ll res;
 
     cin >> n;
