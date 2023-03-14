@@ -1,11 +1,11 @@
 def solution(elements):
-    lst = [False]*(1000001)
+    st = set()
     n = len(elements)
     for i in range(n):
         tmp = 0
         for j in range(i,i+n):
             tmp += elements[j%n]
-            lst[tmp] = True
+            st.add(tmp)
     
-    answer = lst.count(True)
+    answer = len(st)
     return answer
