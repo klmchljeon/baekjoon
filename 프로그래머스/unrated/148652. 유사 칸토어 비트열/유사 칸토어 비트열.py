@@ -15,12 +15,7 @@ def cal(l,r,s,e):
     
     if l<=s and e<=r:
         leng = e-s+1
-        cnt = 0
-        while leng > 1:
-            leng //= 5
-            cnt += 1
-
-        return 4**cnt
+        return (leng//5) * 4
     
     itv = (e-s+1)//5
     res = 0
