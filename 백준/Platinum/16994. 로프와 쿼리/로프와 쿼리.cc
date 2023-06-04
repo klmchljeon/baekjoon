@@ -37,7 +37,7 @@ int main()
             r = r + tmp;
         }
         else {
-            cout << r.substr(x,1) << '\n';
+            cout << r[x] << '\n';
         }
     }
 }
