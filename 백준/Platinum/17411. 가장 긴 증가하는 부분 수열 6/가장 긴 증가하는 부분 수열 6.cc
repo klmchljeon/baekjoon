@@ -1,4 +1,9 @@
 //가장 긴 증가하는 부분 수열 6
+#pragma GCC target("avx,avx2")
+#pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
