@@ -5,6 +5,8 @@ input = sys.stdin.readline
 
 def dfs(x,st:set):
     global res
+    if res: return 
+    
     for nx in d[x]:
         if not nx in st:
             st.add(nx)
