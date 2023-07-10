@@ -1,25 +1,42 @@
-#강아지는 많을수록 좋다
-import sys
-from collections import deque
-input = sys.stdin.readline
+max_ = int(1e9)
+N, M, A, B = map(int, (input().split()))
 
-n,m,a,b = map(int,input().split())
-visit = [-1]*(n+1)
+if A > B:
+    temp = A
+    A = B
+    B = temp
 
-for _ in range(m):
-    l,r = map(int,input().split())
-    for i in range(l,r+1):
-        visit[i] = 0
+dp = [max_]*(N+1)
+danger = [0]*(N+1)
 
-visit[0] = 0
-queue = deque([0])
-while queue:
-    x = queue.popleft()
+for _ in range(M):
+    a, b = map(int, input().split())
+    for i in range(b-a+1):
+        danger[i+a] = 1
+if danger[B] != 1:
+    dp[B] = 1
+if danger[A] != 1:
+    dp[A] = 1
 
-    for i in (a,b):
-        nx = x + i
-        if nx<=n and visit[nx]==-1:
-            visit[nx] = visit[x] + 1
-            queue.append(nx)
+for i in range(N+1):
+    if danger[i] == 1:
+        continue
 
-print(visit[n])
+    if i >= B:
+        if dp[i-A] != 0 and dp[i-B] != 0:
+            dp[i] = min(dp[i], dp[i-A] + 1, dp[i-B] + 1)
+        elif dp[i-A] != 0:
+            dp[i] = min(dp[i], dp[i-A]+1)
+        elif dp[i-B] != 0:
+            dp[i] = min(dp[i], dp[i-B]+1)
+        else:
+            continue
+
+    elif i >= A and dp[i-A] != 0:
+        dp[i] = min(dp[i], dp[i-A]+1)
+
+
+if dp[N] == max_:
+    print(-1)
+else:
+    print(dp[N])
