@@ -1,7 +1,7 @@
 from collections import deque
 
-n = int(input())
-d = [input() for _ in range(n)]
+dx = (-1,1,0,0)
+dy = (0,0,-1,1)
 
 def bfs(loc):
     res = 0
@@ -11,31 +11,20 @@ def bfs(loc):
         x,y = queue.popleft()
         res += 1
 
-        nx,ny = x-1,y
-        if (0<=nx<n and 0<=ny<n):
-            if d[nx][ny] == '1' and not visit[nx][ny]:
-                visit[nx][ny] = True
-                queue.append((nx,ny))
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
 
-        nx,ny = x+1,y
-        if (0<=nx<n and 0<=ny<n):
-            if d[nx][ny] == '1' and not visit[nx][ny]:
-                visit[nx][ny] = True
-                queue.append((nx,ny))
+            if not (0<=nx<n and 0<=ny<n): continue
 
-        nx,ny = x,y-1
-        if (0<=nx<n and 0<=ny<n): 
-            if d[nx][ny] == '1' and not visit[nx][ny]:
-                visit[nx][ny] = True
-                queue.append((nx,ny))
-
-        nx,ny = x,y+1
-        if (0<=nx<n and 0<=ny<n): 
             if d[nx][ny] == '1' and not visit[nx][ny]:
                 visit[nx][ny] = True
                 queue.append((nx,ny))
 
     return res
+
+n = int(input())
+d = [input() for _ in range(n)]
 
 visit = [[False]*n for _ in range(n)]
 
