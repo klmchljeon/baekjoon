@@ -1,3 +1,4 @@
+#WA
 n = int(input())
 a = list(map(int,input().split()))
 b = list(map(int,input().split()))
@@ -9,8 +10,9 @@ if n==1:
 a.sort()
 b.sort()
 
-for i in range(n//2):
-    if a[i] >= b[n-i-1]:
+half = n//2
+for i in range(half):
+    if a[i] >= b[half+i]:
         print('NO')
         break
 
