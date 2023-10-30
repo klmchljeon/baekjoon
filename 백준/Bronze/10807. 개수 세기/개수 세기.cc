@@ -2,14 +2,13 @@
 using namespace std;
 
 int p,t,a;
-vector<int> v;
+vector<int> v(100);
 int res;
 
 int main() {
     cin >> p;
     for (int i=0; i<p; i++) {
-        cin >> t;
-        v.push_back(t);
+        cin >> v[i];
     }
 
     cin >> a;
