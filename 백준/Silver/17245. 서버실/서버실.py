@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def check(num):
     c = 0
     for i in d:
