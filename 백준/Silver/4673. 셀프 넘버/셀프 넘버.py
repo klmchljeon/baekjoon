@@ -1,15 +1,10 @@
-num = set(range(1,10001))
-der_num = set()
+n = 10000
+tmp = set()
+for i in range(1,n+1):
+    a = sum(map(int,str(i))) + i
+    tmp.add(a)
 
-def d(n):
-    der = n
-    for i in str(n):
-        der += int(i)
-    der_num.add(der)
+res = set(range(1,n+1))
 
-for i in range(1,10000):
-    d(i)
-
-self_num = sorted(num-der_num)
-for i in self_num:
-    print(i)
+res -= tmp
+print(*sorted(res),sep='\n')
