@@ -7,29 +7,33 @@ dy = (0,0,-1,1)
 
 m,n = map(int,input().split())
 d = [list(map(int,input().split())) for _ in range(n)]
-visit = [[False]*m for _ in range(n)]
 
+visited = [[-1]*m for _ in range(n)]
 queue = deque([])
-cnt = n*m
+
 for i in range(n):
     for j in range(m):
-        t = d[i][j]
-        if t == 1:
-            queue.append((i,j,0))
-            visit[i][j] = True
-        elif t == -1:
-            cnt -= 1
+        if d[i][j] == 1:
+            visited[i][j] = 0
+            queue.append((i,j))
 
 while queue:
-    x,y,t = queue.popleft()
-    cnt -= 1
+    x,y = queue.popleft()
 
     for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
+        
+        if not (0<=nx<n and 0<=ny<m): continue
+        if d[nx][ny]!=-1 and visited[nx][ny]==-1:
+            visited[nx][ny] = visited[x][y] + 1
+            queue.append((nx,ny))
 
-        if 0<=nx<n and 0<=ny<m and not visit[nx][ny] and d[nx][ny] == 0:
-            visit[nx][ny] = True
-            queue.append((nx,ny,t+1))
+res = -1
+flag = False
+for i in range(n):
+    for j in range(m):
+        flag |= d[i][j]!=-1 and visited[i][j]==-1
+        res = max(res,visited[i][j])
 
-print(-1 if cnt else t)
+print(res if not flag else -1)
