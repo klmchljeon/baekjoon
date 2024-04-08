@@ -5,16 +5,12 @@ sys.setrecursionlimit(int(2e6))
 inf = int(1e6)+1
 
 def dfs(x):
-    tmp = []
     for nx in graph[x]:
         if not visited[nx]:
             visited[nx] = True
-            tmp.append(nx)
             dfs(nx)
-
-    for i in tmp:
-        dp[x][0] += min(dp[i])
-        dp[x][1] += dp[i][0]
+            dp[x][0] += min(dp[nx])
+            dp[x][1] += dp[nx][0]
 
     return 
 
