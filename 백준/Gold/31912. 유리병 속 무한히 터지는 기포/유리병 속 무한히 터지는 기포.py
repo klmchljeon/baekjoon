@@ -14,6 +14,8 @@ for i in range(t):
     dic2 = dict()
     for y in dic:
         k = dic[y]//5
+        if not k: continue
+        
         for i in (-1,0,1):
             ny = y + i
             if not (1<=ny<=n): continue
