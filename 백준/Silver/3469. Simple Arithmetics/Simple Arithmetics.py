@@ -49,5 +49,4 @@ for case in range(t):
 
     for i in lst:
         print(i.rstrip())
-    if case != t-1:
-        print()
+    print()
