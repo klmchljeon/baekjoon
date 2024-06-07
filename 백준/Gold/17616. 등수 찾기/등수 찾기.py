@@ -4,36 +4,64 @@ input = sys.stdin.readline
 
 n,m,x = map(int,input().split())
 
-graph = [[[] for _ in range(n+1)] for _ in range(2)]
-degree = [[0]*(n+1) for _ in range(2)]
-
+lst = []
 for _ in range(m):
     a,b = map(int,input().split())
-    graph[0][a].append(b)
-    degree[0][b] += 1
+    lst.append((a,b))
 
-    graph[1][b].append(a)
-    degree[1][a] += 1
+graph = [[] for _ in range(n+1)]
+degree = [0]*(n+1)
 
+for a,b in lst:
+    graph[a].append(b)
+    degree[b] += 1
 
-check = [[False]*(n+1) for _ in range(n)]
-for d in range(2):
-    queue = deque([])
-    for i in range(1,n+1):
-        if degree[d][i] == 0:
-            queue.append((i,i==x))
+check = [False]*(n+1)
+queue = deque([])
+for i in range(1,n+1):
+    if degree[i] == 0:
+        queue.append(i)
 
-    check[d][x] = True
-    while queue:
-        k,p = queue.popleft()
+check[x] = True
+while queue:
+    k = queue.popleft()
 
-        for i in graph[d][k]:
-            check[d][i] |= check[d][k]
+    for i in graph[k]:
+        check[i] |= check[k]
 
-            degree[d][i] -= 1
-            if degree[d][i] == 0:
-                queue.append((i,p|(i==x)))
+        degree[i] -= 1
+        if degree[i] == 0:
+            queue.append(i)
 
-v = n - check[0].count(True) + 1
-u = check[1].count(True)
+v = n - check.count(True) + 1
+
+del graph
+del degree
+del check
+
+graph = [[] for _ in range(n+1)]
+degree = [0]*(n+1)
+
+for a,b in lst:
+    graph[b].append(a)
+    degree[a] += 1
+
+check = [False]*(n+1)
+queue = deque([])
+for i in range(1,n+1):
+    if degree[i] == 0:
+        queue.append(i)
+
+check[x] = True
+while queue:
+    k = queue.popleft()
+
+    for i in graph[k]:
+        check[i] |= check[k]
+
+        degree[i] -= 1
+        if degree[i] == 0:
+            queue.append(i)
+
+u = check.count(True)
 print(u,v)
