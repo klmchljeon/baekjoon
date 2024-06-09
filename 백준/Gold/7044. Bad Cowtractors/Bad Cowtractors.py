@@ -1,0 +1,31 @@
+import sys
+input = sys.stdin.readline
+
+def find(n):
+    if parent[n] == n: return n
+    return find(parent[n])
+
+v,e = map(int,input().split())
+parent = [i for i in range(v+1)]
+d = []
+for i in range(e):
+    d.append(list(map(int,input().split())))
+
+d.sort(key = lambda x:-x[2])
+
+result = 0
+cnt = 0
+for a,b,c in d:
+    pa = find(a)
+    pb = find(b)
+
+    if pa!=pb:
+        if pa>pb:
+            parent[pa] = pb
+        else:
+            parent[pb] = pa
+            
+        cnt += 1
+        result += c
+
+print(result if cnt==v-1 else -1)
