@@ -1,16 +1,15 @@
+max_ = 2000000
+
 n = int(input())
 lst = list(map(int,input().split()))
 x = int(input())
 
-lst.sort()
+res = 0
 
-e = n-1
-cnt = 0
-for s in range(n):
-    while lst[s]+lst[e]>x and s+1<e:
-        e -= 1
+#cnt[i] : i가 이전까지 등장한 횟수
+cnt = [0]*(max_+1)
+for i in range(n):
+    res += cnt[x-lst[i]]
+    cnt[lst[i]] += 1
 
-    if lst[s] + lst[e] == x:
-        cnt += 1
-
-print(cnt)
+print(res)
