@@ -34,7 +34,7 @@ for i in s:
             print(-1)
             break
 
-    idx = tmp + 1
+    idx = lst[dic[i]][tmp] + 1
 
 else:
     print(cnt)
