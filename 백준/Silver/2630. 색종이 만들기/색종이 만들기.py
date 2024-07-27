@@ -1,29 +1,29 @@
-#색종이 만들기
-def dfs(x,y,n,c):
-    global count
-    if n == 1: 
-        if d[x][y] == c:
-            count[c] += 1
-        return 
+def check(loc,size,c):
+    x,y = loc
+    if size == 0:
+        return [lst[x][y]==c]*2
+    
+    s = 0
+    flag = True
+    for i in range(4):
+        nx = x + size*dx[i]
+        ny = y + size*dy[i]
 
-    for i in range(x,x+n):
-        for j in range(y,y+n):
-            if d[i][j] != c:
-                for k in range(4):
-                    nx = x + dx[k]*n//2
-                    ny = y + dy[k]*n//2
-                    dfs(nx,ny,n//2,c)
-                return 
-
-    count[c] += 1
-    return
+        cnt,b = check((nx,ny),size//2,c)
+        
+        s += cnt
+        flag &= b
+        
+    if flag:
+        return 1,True
+    else:
+        return s,False
 
 dx = (0,0,1,1)
 dy = (0,1,0,1)
 
 n = int(input())
-d = [list(map(int,input().split())) for _ in range(n)]
-count = [0,0]
-dfs(0,0,n,1)
-dfs(0,0,n,0)
-print(*count,sep='\n')
+lst = [list(map(int,input().split())) for _ in range(n)]
+
+res = [check((0,0),n//2,i)[0] for i in (0,1)]
+print(*res, sep='\n')
