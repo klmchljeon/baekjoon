@@ -1,0 +1,5 @@
+input()
+n,*s = input().split()
+print(len(s))
+print(*s,sep='\n')
+exit()
