@@ -1,4 +1,4 @@
-# [Gold IV] 더워! - 32360 
+# [Gold II] 더워! - 32360 
 
 [문제 링크](https://www.acmicpc.net/problem/32360) 
 
