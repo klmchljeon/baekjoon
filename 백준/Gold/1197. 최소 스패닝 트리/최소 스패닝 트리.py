@@ -14,6 +14,9 @@ for _ in range(e):
 result = 0
 count = 0
 while heap:
+    if count == v:
+        break
+
     w,s = heapq.heappop(heap)
     if not visit[s]:
         visit[s] = True
