@@ -16,6 +16,8 @@ for i in range(m):
     if lst[-1][0] == 0:
         lst.pop()
 
+lst = lst[::-1]
+
 res = []
 odd = 1
 for i in range(n):
