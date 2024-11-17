@@ -31,40 +31,49 @@ def det(a):
     return a[0][0]*a[1][1] - a[0][1]*a[1][0]
 
 def mul(a,b,d):
-    x = 1/d * (a[0][0]*b[0] + a[0][1]*b[1])
-    y = 1/d * (a[1][0]*b[0] + a[1][1]*b[1])
-    return x,y
+    x = (a[0][0]*b[0] + a[0][1]*b[1])
+    y = (a[1][0]*b[0] + a[1][1]*b[1])
+    if x%d == 0 and y%d == 0:
+        return x//d, y//d
+    else:
+        return x/d, y/d
+    
+def f(l1,l2):
+    if not intersect(l1,l2):
+        return 0,None
+
+    a,b = sorted(conv(l1))
+    c,d = sorted(conv(l2))
+    if a==d or b==c:
+        res = a if a==d else b
+        return 1,res
+
+    p = [[],[]]
+    q = []
+
+    x,y,z = cal(a,b)
+    p[0] = [x,y]
+    q.append(z)
+
+    x,y,z = cal(c,d)
+    p[1] = [x,y]
+    q.append(z)
+
+    if det(p) == 0:
+        return 4,None
+
+    inv = [[p[1][1],-p[0][1]],[-p[1][0],p[0][0]]]
+    res = mul(inv,q,det(p))
+    return 1,res
 
 l1 = list(map(int,input().split()))
 l2 = list(map(int,input().split()))
 
-if not intersect(l1,l2):
+p,q = f(l1,l2)
+if p == 1:
+    print(1)
+    print(*q)
+elif p == 0:
     print(0)
-    exit()
-
-a,b = sorted(conv(l1))
-c,d = sorted(conv(l2))
-if a==d or b==c:
+else:
     print(1)
-    res = a if a==d else b
-    print(*res)
-    exit()
-
-p = [[],[]]
-q = []
-
-x,y,z = cal(a,b)
-p[0] = [x,y]
-q.append(z)
-
-x,y,z = cal(c,d)
-p[1] = [x,y]
-q.append(z)
-
-if det(p) == 0:
-    print(1)
-    exit()
-
-inv = [[p[1][1],-p[0][1]],[-p[1][0],p[0][0]]]
-print(1)
-print(*mul(inv,q,det(p)))
