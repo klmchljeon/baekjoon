@@ -57,7 +57,7 @@ def check(num):
     a = calipers(gen(d,num))
     b = calipers(gen(d,num+1))
 
-    return a > b
+    return a <= b
 
 n,t = map(int,input().split())
 d = []
@@ -65,26 +65,15 @@ for _ in range(n):
     x,y,dx,dy = map(int,input().split())
     d.append((x,y,dx,dy))
 
-res = None
-idx = -1
-for i in range(t+1):
-    p = calipers(gen(d,i))
-    if res == None or res > p:
-        res = p
-        idx = i
-
-print(idx)
-print(res)
-
-'''s,e = 0,t+1
+s,e = -1,t
 while s+1<e:
     mid = (s+e)//2
 
     if check(mid):
-        s = mid
-
-    else:
         e = mid
 
-print(s)
-print(calipers(gen(d,s)))'''
+    else:
+        s = mid
+
+print(e)
+print(calipers(gen(d,e)))
