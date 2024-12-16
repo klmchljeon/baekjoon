@@ -1,12 +1,13 @@
 lst1 = ['social', 'history', 'language', 'literacy']
 lst2 = ['bigdata', 'public', 'society']
 
-st = input().split()
-for i in st:
-    if i in lst1:
+st = input()
+for i in lst1:
+    if i in st:
         print('digital humanities')
-        break
+        exit()
 
-    if i in lst2:
+for i in lst2:
+    if i in st:
         print('public bigdata')
-        break
+        exit()
