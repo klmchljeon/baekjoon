@@ -1,61 +1,57 @@
 def find(x):
-    if parent[x]==x: return x
+    if parent[x] == x: return x
     parent[x] = find(parent[x])
     return parent[x]
 
 def merge(a,b):
-    if a > b:
-        parent[a] = b
-    else:
-        parent[b] = a
+    pa = find(a)
+    pb = find(b)
 
-def cal(l1,l2):
-    res = 0
-    for p,q in zip(l1,l2):
-        res += abs(p-q)**2
+    if pa < pb:
+        parent[pb] = pa
 
-    return res**0.5
+    elif pa > pb:
+        parent[pa] = pb
+
+def dist(a,b):
+    return ((a[0]-b[0])**2 + (a[1]-b[1])**2)**0.5
 
 n,m = map(int,input().split())
 lst = []
 for _ in range(n):
-    x,y = map(float,input().split())
+    x,y = map(int,input().split())
     lst.append((x,y))
 
 edge = []
 for i in range(n-1):
     for j in range(i+1,n):
-        edge.append((cal(lst[i],lst[j]),i,j))
+        edge.append((i+1,j+1,dist(lst[i],lst[j])))
 
-edge.sort()
+parent = list(range(n+1))
 
-parent = list(range(n))
-
-res = 0
-cnt = 0
 for _ in range(m):
-    x,y = map(int,input().split())
-    x-=1;y-=1
-    
-    px = find(x)
-    py = find(y)
-    if px == py:
+    a,b = map(int,input().split())
+    merge(a,b)
+
+st = set()
+for i in range(1,n+1):
+    st.add(find(i))
+
+edge.sort(key = lambda x:x[2])
+
+n = len(st)
+cnt = 0
+res = 0
+for a,b,c in edge:
+    pa = find(a)
+    pb = find(b)
+
+    if pa == pb:
         continue
 
-    merge(px,py)
+    merge(a,b)
     cnt += 1
-
-for c,x,y in edge:
-    px = find(x)
-    py = find(y)
-
-    if px == py:
-        continue
-
-    merge(px,py)
     res += c
-    cnt += 1
     if cnt == n-1:
+        print(f'{res:.2f}')
         break
-
-print(f'{res:.2f}')
