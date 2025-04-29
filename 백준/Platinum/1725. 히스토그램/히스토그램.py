@@ -6,11 +6,9 @@ lst = [int(input()) for _ in range(n)]
 stack = [(-1,-1)]
 res = 0
 for i in range(n):
-    while stack and stack[-1][0] >= lst[i]:
+    while stack and stack[-1][0] > lst[i]:
         h,idx = stack.pop()
         res = max(res,(i-stack[-1][1]-1)*h)
-
-    res = max(res,(i-stack[-1][1])*lst[i])
 
     stack.append((lst[i],i))
 
