@@ -1,12 +1,9 @@
-import random
 mod = 10001
 
 n = int(input())
 lst = [int(input()) for _ in range(n)]
 p = list(range(10001))
 q = list(range(10001))
-random.shuffle(p)
-random.shuffle(q)
 
 for a in p:
     for b in q:
