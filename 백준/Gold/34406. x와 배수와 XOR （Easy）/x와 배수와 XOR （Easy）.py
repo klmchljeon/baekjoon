@@ -1,9 +1,12 @@
 t = int(input())
 for case in range(t):
-    n = int(input())
-    if n == 0:
+    x = int(input())
+    if x == 0:
         print(1)
-        print(0)
-    else:
         print(2)
-        print(1,0)
+        continue
+    
+    a = 1<<30
+    b = a+1
+    print(2)
+    print(a,b)
