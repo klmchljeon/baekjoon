@@ -1,0 +1,2 @@
+n = int(input())
+print(*(['I love DGU']*n),sep='\n')
