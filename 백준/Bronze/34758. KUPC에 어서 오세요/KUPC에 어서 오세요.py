@@ -1,0 +1,5 @@
+x,y = map(int,input().split())
+n = int(input())
+for _ in range(n):
+    a,b = map(int,input().split())
+    print(int(x!=a and y!=b))
